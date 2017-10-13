@@ -1,0 +1,1 @@
+git config --global http.proxy http://20130142:fe05fe0sonne5@192.168.195.101:8080
