@@ -71,7 +71,7 @@ public class DBTests {
 		try {
 			c = new Testclass();
 			Connection con = c.getConnection();
-			c.Fahrschule_Ort(3, 6060, con);
+			c.Fahrschule_Ort(3, 1, con);
 
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
@@ -197,7 +197,7 @@ public class DBTests {
 			try {
 				c = new Testclass();
 				Connection con = c.getConnection();
-				c.deleteFahrschuleStandort_PLZ(6060, con);
+				c.deleteFahrschuleStandort_OrtID(1, con);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -293,7 +293,7 @@ public class DBTests {
 		try {
 			c = new Testclass();
 			Connection con = c.getConnection();
-			assertTrue(c.getFahrschulenOrte(6060, con)!=null);
+			assertTrue(c.getFahrschulenOrte(1, con)!=null);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

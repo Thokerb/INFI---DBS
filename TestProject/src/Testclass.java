@@ -65,7 +65,7 @@ public class Testclass {
 		}
 		
 		public void InsertOrt(int PLZ,String Ortsname,String Strasse,int HNR,String Land,Connection conn) throws SQLException{
-			String SQL = "INSERT INTO ort (PLZ,Ortsname,Strasse,Hausnr,Land) VALUES (?,?,?,?,?);";
+			String SQL = "INSERT INTO ort (Postleitzahl,Ortsname,Strasse,Hausnr,Land) VALUES (?,?,?,?,?);";
 				pstmt = conn.prepareStatement(SQL);
 				pstmt.setInt(1, PLZ);
 				pstmt.setString(2,Ortsname);
@@ -76,11 +76,11 @@ public class Testclass {
 				pstmt.close();
 		}
 		
-		public void Fahrschule_Ort(int FahrschulID,int PLZ,Connection con) throws SQLException{
-			String SQL = "INSERT INTO fahrschulstandort (FahrschulID,PLZ) VALUES (?,?)";
+		public void Fahrschule_Ort(int FahrschulID,int OrtID,Connection con) throws SQLException{
+			String SQL = "INSERT INTO fahrschulstandort (FahrschulID,OrtID) VALUES (?,?)";
 			pstmt = con.prepareStatement(SQL);
 			pstmt.setInt(1, FahrschulID);
-			pstmt.setInt(2, PLZ);
+			pstmt.setInt(2, OrtID);
 			pstmt.executeUpdate();
 			pstmt.close();
 		
@@ -93,15 +93,15 @@ public class Testclass {
 			stmt.close();
 		}
 		
-		public void deleteOrt(int PLZ,Connection conn) throws SQLException{
-			String SQL = "DELETE FROM ort WHERE PLZ = '"+PLZ+"'";
+		public void deleteOrt(int ID,Connection conn) throws SQLException{
+			String SQL = "DELETE FROM ort WHERE ID = '"+ID+"'";
 			stmt = conn.createStatement();
 			stmt.executeUpdate(SQL);
 			stmt.close();
 		}
 		
-		public void deleteFahrschuleStandort_PLZ(int PLZ,Connection conn) throws SQLException{
-			String SQL = "DELETE FROM fahrschulstandort WHERE PLZ = '"+PLZ+"'";
+		public void deleteFahrschuleStandort_OrtID(int ID,Connection conn) throws SQLException{
+			String SQL = "DELETE FROM fahrschulstandort WHERE OrtID = '"+ID+"'";
 			stmt = conn.createStatement();
 			stmt.executeUpdate(SQL);
 			stmt.close();
@@ -118,11 +118,10 @@ public class Testclass {
 			String SQL = "Select * from fahrschule WHERE FahrschulID = '"+ID+"'";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][2];
+			String[][] daten = new String[99][2];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
+				
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				System.out.println(daten[a][0]+" | "+daten[a][1]);
@@ -135,11 +134,10 @@ public class Testclass {
 			String SQL = "Select * from fahrschule";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][2];
+			String[][] daten = new String[99][2];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
+				
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				System.out.println(daten[a][0]+" | "+daten[a][1]);
@@ -149,20 +147,20 @@ public class Testclass {
 		}
 		
 		public String[][] getOrte(int PLZ,Connection con) throws SQLException{
-			String SQL = "Select * from ort WHERE PLZ = '"+PLZ+"'";
+			String SQL = "Select * from ort WHERE Postleitzahl = '"+PLZ+"'";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][5];
+			String[][] daten = new String[99][6];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
+				
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				daten[a][2] = rs.getString(3);
 				daten[a][3] = rs.getString(4);
 				daten[a][4] = rs.getString(5);
-				System.out.println(daten[a][0]+" | "+daten[a][1]+" | "+daten[a][2]+" | "+daten[a][3]+" | "+daten[a][4]);
+				daten[a][5] = rs.getString(6); 
+				System.out.println(daten[a][0]+" | "+daten[a][1]+" | "+daten[a][2]+" | "+daten[a][3]+" | "+daten[a][4]+" | "+daten[a][5]);
 				a++;
 			}
 			return daten;
@@ -172,31 +170,31 @@ public class Testclass {
 			String SQL = "Select * from ort";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][5];
+
+			String[][] daten = new String[99][6];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				daten[a][2] = rs.getString(3);
 				daten[a][3] = rs.getString(4);
 				daten[a][4] = rs.getString(5);
-				System.out.println(daten[a][0]+" | "+daten[a][1]+" | "+daten[a][2]+" | "+daten[a][3]+" | "+daten[a][4]);
+				daten[a][5] = rs.getString(6); 
+				System.out.println(daten[a][0]+" | "+daten[a][1]+" | "+daten[a][5]+" | "+daten[a][2]+" | "+daten[a][3]+" | "+daten[a][4]);
 				a++;
 			}
 			return daten;
 		}
 		
-		public String[][] getFahrschulenOrte(int PLZ,Connection con) throws SQLException{
-			String SQL = "Select * from fahrschulstandort WHERE PLZ = '"+PLZ+"'";
+		public String[][] getFahrschulenOrte(int ID,Connection con) throws SQLException{
+			String SQL = "Select * from fahrschulstandort WHERE FahrschulID = '"+ID+"'";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][2];
+
+			String[][] daten = new String[99][2];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
+				
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				System.out.println(daten[a][0]+" | "+daten[a][1]);
@@ -209,11 +207,10 @@ public class Testclass {
 			String SQL = "Select * from fahrschulstandort WHERE FahrschulID = '"+ID+"'";
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
-			System.out.println(rs.getFetchSize());
-			String[][] daten = new String[rs.getFetchSize()+1][2];
+
+			String[][] daten = new String[99][2];
 			int a = 0;
 			while(rs.next()){
-				System.out.println(rs.getString(1));
 				daten[a][0] = rs.getString(1);
 				daten[a][1] = rs.getString(2);
 				System.out.println(daten[a][0]+" | "+daten[a][1]);
@@ -221,5 +218,26 @@ public class Testclass {
 			}
 			return daten;
 		}
+		
+		public void updateFahrschule(int ID,String name,Connection con) throws SQLException{
+			String SQL = "Update fahrschule set Name = ? Where FahrschulID = ?";
+			PreparedStatement ps = con.prepareStatement(SQL);
+			ps.setString(1, name);
+			ps.setInt(2, ID);
+			ps.executeUpdate();
+		}
+		
+		public void updateOrt(int ID,String Ortsname,String Strasse, int HNR, String Land,int PLZ,Connection con) throws SQLException{
+			String SQL = "Update fahrschule set Ortsname = ?,Strasse=?,Hausnr=?,Land=?,Postleitzahl=? Where FahrschulID = ?";
+			PreparedStatement ps = con.prepareStatement(SQL);
+			ps.setString(1, Ortsname);
+			ps.setString(2, Strasse);
+			ps.setInt(3, HNR);
+			ps.setString(4, Land);
+			ps.setInt(5, PLZ);
+			ps.setInt(6, ID);
+			ps.executeUpdate();
+		}
+		
 	
 }
