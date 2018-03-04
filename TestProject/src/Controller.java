@@ -20,7 +20,7 @@ public class Controller {
 	    Scanner scan = new Scanner(System.in);
 	    
 		while(true){
-			System.out.println("Geben Sie an welche Operation Sie durchführen möchten (C - Create, R - Read, U - Update, D - Delete, E - End)");
+			System.out.println("Geben Sie an welche Operation Sie durchführen möchten (C - Create, R - Read, U - Update, D - Delete)");
 	        String action = scan.next();
 	        
 	        switch(action){
@@ -136,8 +136,8 @@ public class Controller {
 	        }
 	        case "U":{
 	        	
-	        	String action2 = scan.next();
 	        	System.out.println("Welche Tabelle willst du bearbeiten? (f-fahrschule,o-ort");
+	        	String action2 = scan.next();
 	        	switch(action2){
 	        	case "f":{
 	        		System.out.println("Gib eine FahrschulID an");
@@ -189,8 +189,8 @@ public class Controller {
 	        }
 	        case "D":{
 	        	
-	        	String action2 = scan.next();
 	        	System.out.println("Von welcher Tabelle willst du löschen? (f-fahrschule,o-ort,fs- fahrschulstandort");
+	        	String action2 = scan.next();
 	        	switch(action2){
 	        	case "f":{
 	        		

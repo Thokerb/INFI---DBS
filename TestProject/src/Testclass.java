@@ -228,7 +228,7 @@ public class Testclass {
 		}
 		
 		public void updateOrt(int ID,String Ortsname,String Strasse, int HNR, String Land,int PLZ,Connection con) throws SQLException{
-			String SQL = "Update fahrschule set Ortsname = ?,Strasse=?,Hausnr=?,Land=?,Postleitzahl=? Where FahrschulID = ?";
+			String SQL = "Update ort set Ortsname = ?,Strasse=?,Hausnr=?,Land=?,Postleitzahl=? Where ID = ?";
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ps.setString(1, Ortsname);
 			ps.setString(2, Strasse);
